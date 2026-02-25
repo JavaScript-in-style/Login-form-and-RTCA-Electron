@@ -40,34 +40,25 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const getUsers = () => {
-    try {
-        const data = fs.readFileSync('users.json', 'utf8');
-        return JSON.parse(data || "[]");
-    } 
-    
-    catch (e) {
-        return []; 
-    }
-};
-
-app.post('/register', (req, res) => {
-        const users = getUsers();
-        const newUser = req.body;
-        users.push(newUser);
-        fs.writeFileSync('users.json', JSON.stringify(users, null, 2));
-        res.status(200).send("User saved!");
+app.post('/register', async (req, res) => {
+    const { name, mail, pass } = req.body;
+    await pool.query(
+        'INSERT INTO users (name, mail, pass) VALUES ($1, $2, $3)',
+        [name, mail, pass]
+    );
+    res.status(200).send("User saved!");
 });
 
-app.post('/login', (req, res) => {
-    const users = getUsers();
-    const {mail, pass} = req.body;
-    const checkUser = users.find(u => u.mail === mail && u.pass === pass);
-    if(checkUser) {
-        res.status(200).json(checkUser.name);
-    }
-    else {
-        res.status(404).send('Incorrect Credentials!')
+app.post('/login', async (req, res) => {
+    const { mail, pass } = req.body;
+    const result = await pool.query(
+        'SELECT * FROM users WHERE mail = $1 AND pass = $2',
+        [mail, pass]
+    );
+    if(result.rows.length > 0) {
+        res.status(200).json(result.rows[0].name);
+    } else {
+        res.status(404).send('Incorrect Credentials!');
     }
 });
 
