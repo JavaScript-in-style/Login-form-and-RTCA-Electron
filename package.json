@@ -17,6 +17,7 @@
     "express": "^5.2.1",
     "fs": "^0.0.1-security",
     "path": "^0.12.7",
+    "pg": "^8.18.0",
     "socket.io": "^4.8.3"
   },
   "devDependencies": {
@@ -26,7 +27,7 @@
   "build": {
     "appId": "com.yourname.chatapp",
     "win": {
-        "target": "nsis"
+      "target": "nsis"
     }
-}
+  }
 }

@@ -3,6 +3,33 @@ const fs = require('fs');
 const cors = require('cors');
 const path = require('path');
 const app = express();
+const { Pool } = require('pg');
+
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
+});
+
+const initDB = async () => {
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS users (
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(100),
+            mail VARCHAR(100) UNIQUE,
+            pass VARCHAR(100)
+        )
+    `);
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS messages (
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(100),
+            text TEXT,
+            created_at TIMESTAMP DEFAULT NOW()
+        )
+    `);
+};
+
+initDB();
 
 const http = require('http').createServer(app);
 const io = require('socket.io')(http, {
