@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="rtca style.css">
+  <script src="https://cdn.socket.io/4.8.3/socket.io.min.js"></script>
+</head>
+<body>
+  <div class="sidebar"></div>
+  <div class="channel-sidebar"></div>
+  <div class="channel-topbar"></div>
+  <div class="user-bar">
+      <div class="user-info">
+        <img src="https://shorturl.at/XhBVh" class="pfp">
+        <span id="name"></span>
+      </div>
+      <div class="user-controls">
+        <ion-button class="mic-btn">
+        <ion-icon name="mic"></ion-icon>
+        </ion-button>
+        <ion-button class="headset-btn">
+        <ion-icon name="headset-sharp"></ion-icon>
+        </ion-button>
+        <ion-button class="settings-btn">
+        <ion-icon name="settings-sharp"></ion-icon>
+        </ion-button>
+      </div>
+  </div>
+  <hr id="line">
+  <ul class="list"></ul>
+  <input type="text" class="input" id="message" placeholder="Enter your message">
+  <button class="btn">Send</button>
+  <script src="rtca script.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
