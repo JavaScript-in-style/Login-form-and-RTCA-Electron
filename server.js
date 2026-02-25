@@ -66,8 +66,10 @@ app.get('/chat', (req, res) => {
     res.sendFile(path.join(__dirname, 'public' , 'rtca index.html'));
 });
 
-io.on('connection', (user) => {
+io.on('connection', async (user) => {
     console.log('A user has connected');
+    const result = await pool.query(`SELECT * FROM messages`);
+    user.emit('history', result.rows);
 
     user.on('message', (data) => {
         const {name, text} = data;

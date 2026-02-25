@@ -11,6 +11,15 @@ socket.on('message', (data) => {
   el.scrollIntoView({ behavior: 'smooth', block: 'end' });
 });
 
+socket.on('history', (messages) => {
+  messages.forEach(message => {
+    const el = document.createElement('li');
+    el.textContent = `${message.name}: ${message.text}`;
+    document.querySelector('.list').appendChild(el);
+    el.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  });
+});
+
 
 const messageInput = document.querySelector('#message');
 
