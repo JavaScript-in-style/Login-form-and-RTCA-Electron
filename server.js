@@ -70,7 +70,12 @@ io.on('connection', (user) => {
     console.log('A user has connected');
 
     user.on('message', (data) => {
+        const {name, text} = data;
+        const storeMessage = async () => {
+            await pool.query(`INSERT INTO messages (name, text) VALUES ($1, $2)`, [name, text])
+        }
         io.emit('message', data);
+        storeMessage();
     });
 });
 
