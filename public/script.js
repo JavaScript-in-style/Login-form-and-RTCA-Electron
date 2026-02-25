@@ -19,6 +19,12 @@ async function fetchInfo(event) {
             mail: mail,
             pass: pass
         }
+
+        if(mail === '' || pass === '') {
+            alert('Field cannot be empty');
+            return;
+        }
+
         const response = await fetch('/login', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -51,6 +57,11 @@ async function sendInfo(event) {
             name: name,
             mail: mail,
             pass: pass
+        }
+
+        if(name === '' || mail === '' || pass === '') {
+            alert('Field cannot be empty');
+            return;
         }
 
         const response = await fetch('/register', {
