@@ -3,38 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Chat</title>
   <link rel="stylesheet" href="rtca style.css">
   <script src="https://cdn.socket.io/4.8.3/socket.io.min.js"></script>
 </head>
 <body>
-  <div class="sidebar"></div>
-  <div class="channel-sidebar"></div>
-  <div class="channel-topbar"></div>
-  <div class="user-bar">
+
+  <!-- Left icon sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-icon" title="Home">
+      <i class="ph-bold ph-house"></i>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-icon" title="Messages">
+      <i class="ph-bold ph-chats-circle"></i>
+    </div>
+    <div class="sidebar-icon" title="Friends">
+      <i class="ph-bold ph-users-three"></i>
+    </div>
+  </div>
+
+  <!-- Channel sidebar -->
+  <div class="channel-sidebar">
+    <div class="server-header">
+      General
+      <i class="ph-bold ph-caret-down"></i>
+    </div>
+    <div class="channel-list">
+      <div class="channel-category">Text Channels</div>
+      <div class="channel-item active">
+        <i class="ph-bold ph-hash"></i>
+        general
+      </div>
+    </div>
+
+    <!-- User bar -->
+    <div class="user-bar">
       <div class="user-info">
         <img src="https://shorturl.at/XhBVh" class="pfp">
         <span id="name"></span>
       </div>
       <div class="user-controls">
-        <ion-button class="mic-btn">
-        <ion-icon name="mic"></ion-icon>
-        </ion-button>
-        <ion-button class="headset-btn">
-        <ion-icon name="headset-sharp"></ion-icon>
-        </ion-button>
-        <ion-button class="settings-btn">
-        <ion-icon name="settings-sharp"></ion-icon>
-        </ion-button>
+        <button class="mic-btn">
+          <i class="ph-bold ph-microphone"></i>
+        </button>
+        <button class="headset-btn">
+          <i class="ph-bold ph-headphones"></i>
+        </button>
+        <button class="settings-btn">
+          <i class="ph-bold ph-gear"></i>
+        </button>
       </div>
+    </div>
   </div>
-  <hr id="line">
+
+  <!-- Top bar -->
+  <div class="channel-topbar">
+    <i class="ph-bold ph-hash" style="color: var(--text-muted); font-size: 18px;"></i>
+    <span class="topbar-channel-name">general</span>
+  </div>
+
+  <!-- Messages -->
   <ul class="list"></ul>
-  <input type="text" class="input" id="message" placeholder="Enter your message">
-  <button class="btn">Send</button>
+
+  <!-- Input area -->
+  <div class="input-area">
+    <input type="text" id="message" placeholder="Message #general">
+    <button class="btn">Send</button>
+  </div>
+
   <script src="rtca script.js"></script>
-  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </body>
 </html>

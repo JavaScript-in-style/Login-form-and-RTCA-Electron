@@ -4,31 +4,42 @@ const savedName = localStorage.getItem('chatUsername') || 'Anonymous';
 const username = document.querySelector('#name');
 username.textContent = savedName;
 
-socket.on('message', (data) => {
+function createMessageEl(name, text) {
   const el = document.createElement('li');
-  el.textContent = `${data.name}: ${data.text}`;
+  const initial = name ? name[0].toUpperCase() : '?';
+  el.innerHTML = `
+    <div class="msg-avatar">${initial}</div>
+    <div class="msg-content">
+      <span class="msg-name">${name || 'Anonymous'}</span>
+      <span class="msg-text">${text || ''}</span>
+    </div>
+  `;
+  return el;
+}
+
+socket.on('message', (data) => {
+  const el = createMessageEl(data.name, data.text);
   document.querySelector('.list').appendChild(el);
   el.scrollIntoView({ behavior: 'smooth', block: 'end' });
 });
 
 socket.on('history', (messages) => {
   messages.forEach(message => {
-    const el = document.createElement('li');
-    el.textContent = `${message.name}: ${message.text}`;
+    const el = createMessageEl(message.name, message.text);
     document.querySelector('.list').appendChild(el);
-    el.scrollIntoView({ behavior: 'smooth', block: 'end' });
   });
+  const list = document.querySelector('.list');
+  list.scrollTop = list.scrollHeight;
 });
-
 
 const messageInput = document.querySelector('#message');
 
 document.querySelector('.btn').onclick = () => {
-
+  if(messageInput.value === '') return;
   const data = {
-    name: savedName, 
+    name: savedName,
     text: messageInput.value
-};
+  };
   socket.emit('message', data);
   messageInput.value = '';
 };
@@ -38,4 +49,4 @@ messageInput.addEventListener('keypress', (e) => {
     e.preventDefault();
     document.querySelector('.btn').click();
   }
-}); 
+});
