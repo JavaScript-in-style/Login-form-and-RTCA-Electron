@@ -126,6 +126,7 @@ const avatarSelector = document.querySelector('.avatarSelector');
 const avatar = document.querySelector('#profileAvatar');
 const mailShow = document.querySelectorAll('.settings-input')[1];
 const changePass = document.querySelectorAll('.settings-save-btn')[1];
+const storageType = localStorage.getItem('storageType');
 
 avatarEdit.addEventListener('click', () => {
   avatarSelector.click();
@@ -145,7 +146,8 @@ avatarSelector.addEventListener('change', async (e) => {
   const newAvatar = await response.text();
   avatar.src = newAvatar;
   document.querySelector('.pfp').src = newAvatar;
-  localStorage.setItem('savedAvatar', newAvatar);
+  if(storageType === 'local') {localStorage.setItem('savedAvatar', newAvatar)}
+  else {sessionStorage.setItem('savedAvatar', newAvatar)};
 });
 
 
