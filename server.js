@@ -62,6 +62,12 @@ app.post('/login', async (req, res) => {
     }
 });
 
+app.post('/change-pass', async (req, res) => {
+    const {pass, name} = req.body;
+    const result = await pool.query('UPDATE users set pass = $1 where name = $2', [pass, name]);
+    res.status(200).send('Password Changed!');
+});
+
 app.get('/chat', (req, res) => {
     res.sendFile(path.join(__dirname, 'public' , 'rtca index.html'));
 });

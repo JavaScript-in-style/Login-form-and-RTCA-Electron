@@ -4,6 +4,8 @@ const savedName = localStorage.getItem('chatUsername') || 'Anonymous';
 const username = document.querySelector('#name');
 username.textContent = savedName;
 
+const savedMail = localStorage.getItem('userMail');
+
 // ─── Message rendering ────────────────────────
 function createMessageEl(name, text) {
   const el = document.createElement('li');
@@ -102,3 +104,30 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
   localStorage.removeItem('chatUsername');
   window.location.href = '/';
 });
+
+// Me making it function cuz i'm better than any ai
+
+const avatarEdit = document.querySelector('.avatar-edit-btn');
+const avatarSelector = document.querySelector('.avatarSelector');
+const mailShow = document.querySelector('.settings-input')[1];
+const changePass = document.querySelector('settings-save-btn')[1];
+
+avatarEdit.addEventListener('click', () => {
+  avatarSelector.click();
+});
+
+
+mailShow.textContent = savedMail;
+
+changePass.addEventListener('click', async () => {
+  const newPass = document.querySelector('.settings-input')[2].value.trim();
+  if(newPass) {
+    const response = await fetch('/change-pass', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ pass: newPass, name: savedName})
+        });
+  };
+  document.getElementById('logoutBtn').click();
+});
+

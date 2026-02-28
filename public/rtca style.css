@@ -555,6 +555,7 @@ body {
 .settings-save-btn {
     margin-top: 8px;
     padding: 8px 20px;
+    height: 40px;
     background: var(--purple-primary);
     color: white;
     border: none;
@@ -611,6 +612,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.avatarSelector {
+    display: none;
 }
 
 .profile-name-display {
