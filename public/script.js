@@ -15,6 +15,7 @@ async function fetchInfo(event) {
     try{
         const mail = document.querySelector('#mail').value;
         const pass = document.querySelector('#pass').value;
+        const checkbox = document.querySelector('#remember-checkbox');
         const loginData = {
             mail: mail,
             pass: pass
@@ -36,10 +37,20 @@ async function fetchInfo(event) {
         }
 
         const data = await response.json();
-        localStorage.setItem('chatUsername', data.name);
-        localStorage.setItem('userMail', data.mail);
-        localStorage.setItem('savedAvatar', data.avatar || '');
-        window.location.href = '/chat';
+        if(checkbox.checked) {
+            localStorage.setItem('chatUsername', data.name);
+            localStorage.setItem('userMail', data.mail);
+            localStorage.setItem('savedAvatar', data.avatar || '');
+            localStorage.setItem('storageType', 'local');
+            window.location.href = '/chat';
+        }
+        else {
+            sessionStorage.setItem('chatUsername', data.name);
+            sessionStorage.setItem('userMail', data.mail);
+            sessionStorage.setItem('savedAvatar', data.avatar || '');
+            localStorage.setItem('storageType', 'session');
+            window.location.href = '/chat';
+        }
     }
 
 

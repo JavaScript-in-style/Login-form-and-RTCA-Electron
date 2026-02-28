@@ -1,14 +1,14 @@
 const socket = io();
 
-const savedName = localStorage.getItem('chatUsername') || 'Anonymous';
+const savedName = localStorage.getItem('chatUsername') || sessionStorage.getItem('chatUsername');
 const username = document.querySelector('#name');
 username.textContent = savedName;
-if(!localStorage.getItem('chatUsername')) {
+if(!savedName) {
     window.location.href = '/';
 }
 
-const savedMail = localStorage.getItem('userMail');
-const savedAvatar = localStorage.getItem('savedAvatar');
+const savedMail = localStorage.getItem('userMail') || sessionStorage.getItem('userMail');
+const savedAvatar = localStorage.getItem('savedAvatar') || sessionStorage.getItem('savedAvatar');
 const defaultAvatar = 'https://shorturl.at/XhBVh';
 document.querySelector('.pfp').src = savedAvatar || defaultAvatar;
 document.querySelector('#profileAvatar').src = savedAvatar || defaultAvatar;
@@ -98,9 +98,11 @@ document.querySelectorAll('.settings-nav-item[data-section]').forEach(item => {
 
 // Save nickname
 document.getElementById('saveNickname').addEventListener('click', () => {
+  const storageType = localStorage.getItem('storageType');
   const newName = document.getElementById('nicknameInput').value.trim();
   if(newName) {
-    localStorage.setItem('chatUsername', newName);
+    if(storageType === 'local') {localStorage.setItem('chatUsername', newName)}
+    else {sessionStorage.setItem('chatUsername', newName)};
     document.getElementById('profileNameDisplay').textContent = newName;
     document.querySelector('#name').textContent = newName;
     document.getElementById('nicknameInput').placeholder = newName;
@@ -111,6 +113,8 @@ document.getElementById('saveNickname').addEventListener('click', () => {
 document.getElementById('logoutBtn').addEventListener('click', () => {
   localStorage.removeItem('chatUsername');
   localStorage.removeItem('userMail');
+  sessionStorage.removeItem('chatUsername');
+  sessionStorage.removeItem('userMail');
   window.location.href = '/';
 });
 
