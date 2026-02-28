@@ -9,6 +9,14 @@ loginLink.addEventListener('click', () => wrapper.classList.remove('active'));
 btnPopup.addEventListener('click', () => wrapper.classList.add('active-popup'));
 iconClose.addEventListener('click', () => wrapper.classList.remove('active-popup'));
 
+window.addEventListener('DOMContentLoaded', () => {
+    const storageType = localStorage.getItem('storageType');
+    
+    if(storageType === 'local') {
+        window.location.href = '/chat';
+    }
+});
+
 async function fetchInfo(event) {
     event.preventDefault();
 
