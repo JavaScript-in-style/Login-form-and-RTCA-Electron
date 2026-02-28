@@ -6,7 +6,7 @@ function createWindow() {
         height: 720,
     });
 
-    win.loadURL('https://login-form-and-rtca-electron-production.up.railway.app');
+    win.loadURL('https://rtca.up.railway.app');
 }
 
 app.whenReady().then(createWindow);
