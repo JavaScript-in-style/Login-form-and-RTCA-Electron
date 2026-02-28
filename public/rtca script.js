@@ -3,6 +3,9 @@ const socket = io();
 const savedName = localStorage.getItem('chatUsername') || 'Anonymous';
 const username = document.querySelector('#name');
 username.textContent = savedName;
+if(!localStorage.getItem('chatUsername')) {
+    window.location.href = '/';
+}
 
 const savedMail = localStorage.getItem('userMail');
 const savedAvatar = localStorage.getItem('savedAvatar');
@@ -107,7 +110,6 @@ document.getElementById('saveNickname').addEventListener('click', () => {
 // Logout
 document.getElementById('logoutBtn').addEventListener('click', () => {
   localStorage.removeItem('chatUsername');
-  localStorage.removeItem('savedAvatar');
   localStorage.removeItem('userMail');
   window.location.href = '/';
 });
