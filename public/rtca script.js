@@ -108,6 +108,8 @@ document.getElementById('saveNickname').addEventListener('click', () => {
 // Logout
 document.getElementById('logoutBtn').addEventListener('click', () => {
   localStorage.removeItem('chatUsername');
+  localStorage.removeItem('savedAvatar');
+  localStorage.removeItem('userMail');
   window.location.href = '/';
 });
 
@@ -136,6 +138,8 @@ avatarSelector.addEventListener('change', async (e) => {
 
   const newAvatar = await response.text();
   avatar.src = newAvatar;
+  document.querySelector('.pfp').src = newAvatar;
+  localStorage.setItem('savedAvatar', newAvatar);
 });
 
 
