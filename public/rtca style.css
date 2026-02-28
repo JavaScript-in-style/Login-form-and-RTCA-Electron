@@ -275,7 +275,11 @@ body {
 .list::-webkit-scrollbar-thumb { background: var(--surface); border-radius: 4px; }
 
 .list li {
+<<<<<<< HEAD
     padding: 8px 12px;
+=======
+    padding: 6px 12px;
+>>>>>>> 02839c3b0901d045a91ab0f82dd132b296d930e4
     border-radius: 8px;
     font-size: 14px;
     line-height: 1.5;
@@ -283,15 +287,19 @@ body {
     transition: background 0.1s;
     max-width: 100%;
     word-break: break-word;
+<<<<<<< HEAD
     display: flex;
     align-items: flex-start;
     gap: 12px;
+=======
+>>>>>>> 02839c3b0901d045a91ab0f82dd132b296d930e4
 }
 
 .list li:hover {
     background: var(--surface);
 }
 
+<<<<<<< HEAD
 .msg-avatar {
     width: 36px;
     height: 36px;
@@ -324,6 +332,8 @@ body {
     color: var(--text-primary);
 }
 
+=======
+>>>>>>> 02839c3b0901d045a91ab0f82dd132b296d930e4
 /* ─── INPUT AREA ──────────────────────────── */
 .input-area {
     position: fixed;
