@@ -55,6 +55,7 @@ async function sendInfo(event) {
         const name = document.querySelector('#name').value;
         const mail = document.querySelector('#regmail').value;
         const pass = document.querySelector('#regpass').value;
+        const checkbox = document.querySelector('#checkbox');
         const data = {
             name: name,
             mail: mail,
@@ -63,6 +64,11 @@ async function sendInfo(event) {
 
         if(name === '' || mail === '' || pass === '') {
             alert('Field cannot be empty');
+            return;
+        }
+
+        if(!checkbox.checked) {
+            alert('You must agree to the terms and conditions!')
             return;
         }
 
