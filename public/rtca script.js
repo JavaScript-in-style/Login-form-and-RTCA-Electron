@@ -8,7 +8,7 @@ const savedMail = localStorage.getItem('userMail');
 const savedAvatar = localStorage.getItem('savedAvatar');
 if(savedAvatar) {
     document.querySelector('.pfp').src = savedAvatar;
-    avatar.src = savedAvatar;
+    document.querySelector('#profileAvatar').src = savedAvatar;
 }
 
 // ─── Message rendering ────────────────────────
