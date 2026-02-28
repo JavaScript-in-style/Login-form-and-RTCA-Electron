@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chat</title>
-  <link rel="stylesheet" href="rtca style.css">
+  <link rel="stylesheet" href="rtca_style.css">
   <script src="https://cdn.socket.io/4.8.3/socket.io.min.js"></script>
 </head>
 <body>
@@ -70,6 +70,115 @@
   <div class="input-area">
     <input type="text" id="message" placeholder="Message #general">
     <button class="btn">Send</button>
+  </div>
+
+  <!-- Settings overlay -->
+  <div class="settings-overlay" id="settingsOverlay"></div>
+
+  <!-- Settings panel -->
+  <div class="settings-panel" id="settingsPanel">
+    <div class="settings-header">
+      <span>Settings</span>
+      <button class="settings-close" id="settingsClose">
+        <i class="ph-bold ph-x"></i>
+      </button>
+    </div>
+
+    <div class="settings-body">
+      <!-- Nav -->
+      <div class="settings-nav">
+        <div class="settings-nav-section">User Settings</div>
+        <div class="settings-nav-item active" data-section="profile">
+          <i class="ph-bold ph-user"></i> My Profile
+        </div>
+        <div class="settings-nav-item" data-section="account">
+          <i class="ph-bold ph-lock"></i> Account
+        </div>
+        <div class="settings-nav-section">App Settings</div>
+        <div class="settings-nav-item" data-section="appearance">
+          <i class="ph-bold ph-paint-brush"></i> Appearance
+        </div>
+        <div class="settings-nav-item" data-section="notifications">
+          <i class="ph-bold ph-bell"></i> Notifications
+        </div>
+        <div class="settings-nav-divider"></div>
+        <div class="settings-nav-item danger" id="logoutBtn">
+          <i class="ph-bold ph-sign-out"></i> Log Out
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="settings-content">
+
+        <!-- Profile section -->
+        <div class="settings-section active" id="section-profile">
+          <h2 class="settings-title">My Profile</h2>
+          <div class="profile-card">
+            <div class="profile-banner"></div>
+            <div class="profile-avatar-wrap">
+              <img src="https://shorturl.at/XhBVh" class="profile-avatar" id="profileAvatar">
+              <button class="avatar-edit-btn" title="Change avatar">
+                <i class="ph-bold ph-camera"></i>
+              </button>
+            </div>
+            <div class="profile-name-display" id="profileNameDisplay"></div>
+          </div>
+          <div class="settings-field">
+            <label class="settings-label">Display Name</label>
+            <input type="text" class="settings-input" id="nicknameInput" placeholder="Enter a nickname">
+            <button class="settings-save-btn" id="saveNickname">Save</button>
+          </div>
+        </div>
+
+        <!-- Account section -->
+        <div class="settings-section" id="section-account">
+          <h2 class="settings-title">Account</h2>
+          <div class="settings-field">
+            <label class="settings-label">Email</label>
+            <input type="email" class="settings-input" placeholder="Your email" disabled>
+          </div>
+          <div class="settings-field">
+            <label class="settings-label">Change Password</label>
+            <input type="password" class="settings-input" placeholder="New password">
+            <button class="settings-save-btn">Update</button>
+          </div>
+        </div>
+
+        <!-- Appearance section -->
+        <div class="settings-section" id="section-appearance">
+          <h2 class="settings-title">Appearance</h2>
+          <div class="settings-field">
+            <label class="settings-label">Theme</label>
+            <div class="theme-options">
+              <div class="theme-option active" data-theme="dark">
+                <div class="theme-preview dark-preview"></div>
+                <span>Dark</span>
+              </div>
+              <div class="theme-option" data-theme="light">
+                <div class="theme-preview light-preview"></div>
+                <span>Light</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notifications section -->
+        <div class="settings-section" id="section-notifications">
+          <h2 class="settings-title">Notifications</h2>
+          <div class="settings-toggle-row">
+            <div>
+              <div class="settings-label">Enable Notifications</div>
+              <div class="settings-hint">Show desktop notifications for new messages</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="notifToggle">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 
   <script src="rtca script.js"></script>

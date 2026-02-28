@@ -4,6 +4,7 @@ const savedName = localStorage.getItem('chatUsername') || 'Anonymous';
 const username = document.querySelector('#name');
 username.textContent = savedName;
 
+// ─── Message rendering ────────────────────────
 function createMessageEl(name, text) {
   const el = document.createElement('li');
   const initial = name ? name[0].toUpperCase() : '?';
@@ -49,4 +50,55 @@ messageInput.addEventListener('keypress', (e) => {
     e.preventDefault();
     document.querySelector('.btn').click();
   }
+});
+
+// ─── Settings panel ───────────────────────────
+const settingsPanel = document.getElementById('settingsPanel');
+const settingsOverlay = document.getElementById('settingsOverlay');
+const settingsClose = document.getElementById('settingsClose');
+const settingsBtn = document.querySelector('.settings-btn');
+
+// Set profile name display
+document.getElementById('profileNameDisplay').textContent = savedName;
+document.getElementById('nicknameInput').placeholder = savedName;
+
+// Open
+settingsBtn.addEventListener('click', () => {
+  settingsPanel.classList.add('open');
+  settingsOverlay.classList.add('open');
+});
+
+// Close
+function closeSettings() {
+  settingsPanel.classList.remove('open');
+  settingsOverlay.classList.remove('open');
+}
+
+settingsClose.addEventListener('click', closeSettings);
+settingsOverlay.addEventListener('click', closeSettings);
+
+// Nav switching
+document.querySelectorAll('.settings-nav-item[data-section]').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.settings-nav-item').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.settings-section').forEach(s => s.classList.remove('active'));
+    item.classList.add('active');
+    document.getElementById(`section-${item.dataset.section}`).classList.add('active');
+  });
+});
+
+// Save nickname
+document.getElementById('saveNickname').addEventListener('click', () => {
+  const newName = document.getElementById('nicknameInput').value.trim();
+  if(newName) {
+    localStorage.setItem('chatUsername', newName);
+    document.getElementById('profileNameDisplay').textContent = newName;
+    document.querySelector('#name').textContent = newName;
+  }
+});
+
+// Logout
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  localStorage.removeItem('chatUsername');
+  window.location.href = '/';
 });
