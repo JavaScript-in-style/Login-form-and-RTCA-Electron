@@ -44,7 +44,7 @@ async function fetchInfo(event) {
             localStorage.setItem('storageType', 'local');
             window.location.href = '/chat';
         }
-        else {
+        else if(!checkbox.checked) {
             sessionStorage.setItem('chatUsername', data.name);
             sessionStorage.setItem('userMail', data.mail);
             sessionStorage.setItem('savedAvatar', data.avatar || '');
