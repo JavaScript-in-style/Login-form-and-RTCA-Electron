@@ -96,6 +96,7 @@ document.getElementById('saveNickname').addEventListener('click', () => {
     localStorage.setItem('chatUsername', newName);
     document.getElementById('profileNameDisplay').textContent = newName;
     document.querySelector('#name').textContent = newName;
+    document.getElementById('nicknameInput').placeholder = newName;
   }
 });
 
@@ -109,8 +110,8 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
 
 const avatarEdit = document.querySelector('.avatar-edit-btn');
 const avatarSelector = document.querySelector('.avatarSelector');
-const mailShow = document.querySelector('.settings-input')[1];
-const changePass = document.querySelector('settings-save-btn')[1];
+const mailShow = document.querySelectorAll('.settings-input')[1];
+const changePass = document.querySelectorAll('.settings-save-btn')[1];
 
 avatarEdit.addEventListener('click', () => {
   avatarSelector.click();
@@ -120,7 +121,7 @@ avatarEdit.addEventListener('click', () => {
 mailShow.textContent = savedMail;
 
 changePass.addEventListener('click', async () => {
-  const newPass = document.querySelector('.settings-input')[2].value.trim();
+  const newPass = document.querySelectorAll('.settings-input')[2].value.trim();
   if(newPass) {
     const response = await fetch('/change-pass', {
             method: 'POST',
