@@ -113,6 +113,7 @@ document.getElementById('saveNickname').addEventListener('click', () => {
 document.getElementById('logoutBtn').addEventListener('click', () => {
   localStorage.removeItem('chatUsername');
   localStorage.removeItem('userMail');
+  localStorage.removeItem('storageType');
   sessionStorage.removeItem('chatUsername');
   sessionStorage.removeItem('userMail');
   window.location.href = '/';
