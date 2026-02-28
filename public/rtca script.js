@@ -6,10 +6,9 @@ username.textContent = savedName;
 
 const savedMail = localStorage.getItem('userMail');
 const savedAvatar = localStorage.getItem('savedAvatar');
-if(savedAvatar) {
-    document.querySelector('.pfp').src = savedAvatar;
-    document.querySelector('#profileAvatar').src = savedAvatar;
-}
+const defaultAvatar = 'https://shorturl.at/XhBVh';
+document.querySelector('.pfp').src = savedAvatar || defaultAvatar;
+document.querySelector('#profileAvatar').src = savedAvatar || defaultAvatar;
 
 // ─── Message rendering ────────────────────────
 function createMessageEl(name, text) {
