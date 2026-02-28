@@ -4,6 +4,16 @@ const cors = require('cors');
 const path = require('path');
 const app = express();
 const { Pool } = require('pg');
+const cloudinary = require('cloudinary').v2;
+const multer = require('multer');
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+const upload = multer({ storage: multer.memoryStorage() });
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
@@ -14,6 +24,7 @@ const initDB = async () => {
     await pool.query(`
         CREATE TABLE IF NOT EXISTS users (
             id SERIAL PRIMARY KEY,
+            avatar TEXT,
             name VARCHAR(100),
             mail VARCHAR(100) UNIQUE,
             pass VARCHAR(100)
@@ -56,7 +67,11 @@ app.post('/login', async (req, res) => {
         [mail, pass]
     );
     if(result.rows.length > 0) {
-        res.status(200).json(result.rows[0].name);
+        res.status(200).json({
+            name: result.rows[0].name,
+            mail: result.rows[0].mail,
+            avatar: result.rows[0].avatar
+        });
     } else {
         res.status(404).send('Incorrect Credentials!');
     }
@@ -66,6 +81,16 @@ app.post('/change-pass', async (req, res) => {
     const {pass, name} = req.body;
     const result = await pool.query('UPDATE users set pass = $1 where name = $2', [pass, name]);
     res.status(200).send('Password Changed!');
+});
+
+app.post('/upload-avatar', upload.single('avatar'), async(req, res) => {
+    const {name} = req.body;
+    const stream = cloudinary.uploader.upload_stream(async (error, result) => {
+    if(error) return res.status(500).send('Upload failed');
+    const save = await pool.query('UPDATE users set avatar = $1 where name = $2', [result.secure_url, name])
+    res.status(200).send(result.secure_url);
+});
+stream.end(req.file.buffer);
 });
 
 app.get('/chat', (req, res) => {

@@ -5,6 +5,11 @@ const username = document.querySelector('#name');
 username.textContent = savedName;
 
 const savedMail = localStorage.getItem('userMail');
+const savedAvatar = localStorage.getItem('savedAvatar');
+if(savedAvatar) {
+    document.querySelector('.pfp').src = savedAvatar;
+    avatar.src = savedAvatar;
+}
 
 // ─── Message rendering ────────────────────────
 function createMessageEl(name, text) {
@@ -110,11 +115,27 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
 
 const avatarEdit = document.querySelector('.avatar-edit-btn');
 const avatarSelector = document.querySelector('.avatarSelector');
+const avatar = document.querySelector('#profileAvatar');
 const mailShow = document.querySelectorAll('.settings-input')[1];
 const changePass = document.querySelectorAll('.settings-save-btn')[1];
 
 avatarEdit.addEventListener('click', () => {
   avatarSelector.click();
+});
+
+avatarSelector.addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  const formData = new FormData();
+  formData.append('avatar', file);
+  formData.append('name', savedName);
+
+  const response = await fetch('/upload-avatar', {
+    method: 'POST',
+    body: formData
+  });
+
+  const newAvatar = await response.text();
+  avatar.src = newAvatar;
 });
 
 

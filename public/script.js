@@ -36,8 +36,9 @@ async function fetchInfo(event) {
         }
 
         const data = await response.json();
-        localStorage.setItem('chatUsername', data);
-        localStorage.setItem('userMail', data);
+        localStorage.setItem('chatUsername', data.name);
+        localStorage.setItem('userMail', data.mail);
+        localStorage.setItem('savedAvatar', data.avatar);
         window.location.href = '/chat';
     }
 
