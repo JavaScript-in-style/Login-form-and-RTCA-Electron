@@ -118,7 +118,7 @@ avatarEdit.addEventListener('click', () => {
 });
 
 
-mailShow.textContent = savedMail;
+mailShow.value = savedMail;
 
 changePass.addEventListener('click', async () => {
   const newPass = document.querySelectorAll('.settings-input')[2].value.trim();
